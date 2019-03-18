@@ -21,5 +21,5 @@ class Effect():
 
     def handleAttacked(self):
         if self.type == EffectType.GUARD:
-            #TODO
+            self.parent.damageResist += 0.5
             pass

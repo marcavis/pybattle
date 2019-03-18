@@ -25,6 +25,9 @@ class Character:
         self.entities = [] #cópia da informação de unidades na batalha
         self.effects = [] #efeitos que modificam o personagem
 
+        #special modifiers
+        self.damageResist = 0.0
+
     def attack(self, target):
         print(self.name + " atacou " + target.name)
         target.attacked(self)
@@ -37,6 +40,7 @@ class Character:
         if(amount > 0):
             self.pv = (self.pv[0] - amount, self.pv[1])
             print(self.name + " sofreu " + str(amount) + " pontos de dano.")
+            input()
         if(self.pv[0] < 1):
             self.alive = False
 
