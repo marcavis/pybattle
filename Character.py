@@ -33,14 +33,15 @@ class Character:
         target.attacked(self)
 
     def attacked(self, origin):
-        self.damage((origin.at[0] - self.df[0]) * weaponFactor(origin))
+        self.damage((origin.at[0] - self.df[0]) * weaponFactor(origin) * (1 - self.damageResist))
 
     def damage(self, amount):
         amount = round(amount)
-        if(amount > 0):
-            self.pv = (self.pv[0] - amount, self.pv[1])
-            print(self.name + " sofreu " + str(amount) + " pontos de dano.")
-            input()
+        if(amount < 1):
+            amount = 1
+        self.pv = (self.pv[0] - amount, self.pv[1])
+        print(self.name + " sofreu " + str(amount) + " pontos de dano.")
+        input()
         if(self.pv[0] < 1):
             self.alive = False
 
@@ -86,7 +87,9 @@ class Character:
             if reset == True:
                 self.act()
         else:
-            pass
+            target = random.choice(self.validAttackTargets())
+            self.attack(target)
+
 
     def applyEffect(self, effectType, args=[]):
         newEffect = Effect.Effect(self, effectType, args)
